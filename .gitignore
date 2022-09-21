@@ -1,0 +1,14 @@
+# Python artifacts
+__pycache__
+
+# Pytest artifacts
+.pytest_cache
+
+# Python virtualenv
+.venv
+
+# ENV
+.env
+
+# IDE
+.vscode
