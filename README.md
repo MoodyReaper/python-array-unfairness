@@ -1,4 +1,4 @@
-![Build Status](https://github.com/MoodyReaper/python-array-unfairness/workflows/poetry/badge.svg)
+![CI Status](https://github.com/MoodyReaper/python-array-unfairness/actions/workflows/poetry.yml/badge.svg)
 
 # Test task
 
