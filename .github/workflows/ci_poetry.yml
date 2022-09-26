@@ -1,0 +1,49 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10"]
+        poetry-version: ["1.2"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run image
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Run Poetry install
+        run: poetry install
+      - name: Run Flake8
+        run: poetry run flake8
+      - name: Run Black
+        run: poetry run black --check src/ tests/
+      - name: Run Pytest with test coverage report
+        run: poetry run pytest --cov-report=term --cov=src/ | tee .pytest_coverage.txt
+      - name: Pytest coverage comment (used for badge only)
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: .pytest_coverage.txt
+      - name: Create test coverage badge
+        uses: schneegans/dynamic-badges-action@v1.4.0
+        with:
+          auth: ${{ secrets.DYNAMIC_BADGES_ACTION }}
+          gistID: 9d078240555ff416181fdec9cfb370cf
+          filename: python-array-unfairness-test-coverage.json
+          label: Test Coverage
+          message: ${{ steps.coverageComment.outputs.coverage }}
+          color: ${{ steps.coverageComment.outputs.color }}
+          namedLogo: python

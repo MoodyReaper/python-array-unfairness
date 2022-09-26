@@ -3,6 +3,7 @@ __pycache__
 
 # Pytest artifacts
 .pytest_cache
+*coverage*
 
 # Python virtualenv
 .venv

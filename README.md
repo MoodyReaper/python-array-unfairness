@@ -1,4 +1,5 @@
-![CI Status](https://github.com/MoodyReaper/python-array-unfairness/actions/workflows/poetry.yml/badge.svg)
+![CI Status](https://github.com/MoodyReaper/python-array-unfairness/actions/workflows/ci_poetry.yml/badge.svg)
+![Test Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/MoodyReaper/9d078240555ff416181fdec9cfb370cf/raw/python-array-unfairness-test-coverage.json)
 
 # Test task
 
@@ -17,3 +18,5 @@ My solving of the following task:
 > `Unfairness = max(4,7) - min(4,7) = 7 - 4 = 3`
 >
 > Testing for all pairs, the solution provides the minimum unfairness.
+
+`Basically, it is a so-called "Min-Max optimization problem"`

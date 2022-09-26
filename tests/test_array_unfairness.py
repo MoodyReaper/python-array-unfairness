@@ -1,3 +1,7 @@
+import runpy
+import warnings
+from math import inf
+
 import pytest
 
 from src.array_unfairness.main import find_lowest_unfairness_value
@@ -39,3 +43,20 @@ def test_invalid_data_find_lowest_unfairness_value(test_data):
     arr = test_data["arr"]
     k = test_data["k"]
     find_lowest_unfairness_value(arr, k)
+
+
+@pytest.mark.xfail(raises=ValueError)
+def test_not_found_value_find_lowest_unfairness_value():
+    arr = [inf, inf, inf, inf]
+    k = 3
+    find_lowest_unfairness_value(arr, k)
+
+
+def test_module_run_main():
+    # TODO: fix runtime warning
+    warnings.filterwarnings(
+        "ignore",
+        category=RuntimeWarning,
+        message="'src.array_unfairness.main' found in sys.modules",
+    )
+    runpy.run_module("src.array_unfairness.main", run_name="__main__")

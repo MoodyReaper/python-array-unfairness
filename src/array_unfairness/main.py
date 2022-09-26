@@ -2,8 +2,21 @@ from math import inf, isinf
 from numbers import Number
 
 
-def find_lowest_unfairness_value(array: list[Number], k: int) -> Number:
-    # Basic parameters checks
+def validate_input_data(array: list[Number], k: int):
+    """
+    Basic validation of input data
+
+    Parameters
+    ----------
+    array : list of numbers, required
+    k : int number, required
+
+    Raises
+    ------
+    ValueError
+        If any value is invalid
+    """
+
     if not isinstance(array, list):
         raise ValueError("'array' should be a type of list")
     if not isinstance(k, int):
@@ -15,38 +28,57 @@ def find_lowest_unfairness_value(array: list[Number], k: int) -> Number:
     if k > len(array):
         raise ValueError("'k' should not be bigger than array length")
 
+
+def find_lowest_unfairness_value(array: list[Number], k: int) -> Number:
+    """
+    Min-max search method for sub-arrays with specified length
+
+    Parameters
+    ----------
+    array : list of numbers, required
+        defines array for min-max search
+    k : int number, required
+        defines sub-array length for min-max search
+
+    Raises
+    ------
+    ValueError
+        If min-max value was not found
+
+    Returns
+    -------
+    Lowest min-max value
+    """
+
+    # Input data validation
+    validate_input_data(array, k)
+
     # Array sorting reduces sub-array combinations to only relevant ones
     sorted_arr = sorted(array)
+    # Reducing len() call by 1
+    length_arr = len(sorted_arr)
 
-    # If no sub-arrays are needed when array == sub-array
-    if k == len(array):
-        return sorted_arr[-1] - sorted_arr[0]
-
+    # Initial value for comparison
     lowest_unfairness = inf
-    k_index = k - 1
-    for begin_index in range(0, len(array) - k):
-        end_index = begin_index + k_index
-        curr_unfairness = sorted_arr[end_index] - sorted_arr[begin_index]
-        if curr_unfairness < lowest_unfairness:
-            lowest_unfairness = curr_unfairness
+
+    # No sub-arrays are needed when array == sub-array
+    if k == length_arr:
+        lowest_unfairness = sorted_arr[-1] - sorted_arr[0]
+    # Case with sub-arrays formation
+    else:
+        # Moving static math operation out loop
+        k_index = k - 1
+        for begin_index in range(0, length_arr - k):
+            end_index = begin_index + k_index
+            curr_unfairness = sorted_arr[end_index] - sorted_arr[begin_index]
+            if curr_unfairness < lowest_unfairness:
+                lowest_unfairness = curr_unfairness
 
     if isinf(lowest_unfairness):
         raise ValueError("Could not find a valid unfairness value")
 
     return lowest_unfairness
 
-
-# Applicable to unsorted sub-array
-# def calculate_unfairness(arr: list[Number]) -> Number:
-#    if not array:
-#        raise ValueError("Array should not be empty")
-#
-#    # First option
-#    # sorted_arr = sorted(arr)
-#    # return sorted_arr[0] - sorted_arr[-1]
-#
-#    # Second option
-#    return max(arr) - min(arr)
 
 if __name__ == "__main__":
     # Sample data
