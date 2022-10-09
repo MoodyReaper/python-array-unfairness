@@ -19,4 +19,4 @@ My solving of the following task:
 >
 > Testing for all pairs, the solution provides the minimum unfairness.
 
-`Basically, it is a so-called "Min-Max optimization problem"`
+Basically, it is a so-called "min-max optimization problem"

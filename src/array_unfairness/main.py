@@ -18,15 +18,15 @@ def validate_input_data(array: list[Number], k: int):
     """
 
     if not isinstance(array, list):
-        raise ValueError("'array' should be a type of list")
+        raise ValueError("'array' must be a type of 'list'")
     if not isinstance(k, int):
-        raise ValueError("'k' should be a type of int")
+        raise ValueError("'k' must be a type of 'int'")
     if not array:
-        raise ValueError("'array' should not be empty")
+        raise ValueError("'array' must not be empty")
     if k <= 0:
-        raise ValueError("'k' value must be bigger than 0")
+        raise ValueError("'k' must be bigger than 0")
     if k > len(array):
-        raise ValueError("'k' should not be bigger than array length")
+        raise ValueError("'k' must not be bigger than 'array' length")
 
 
 def find_lowest_unfairness_value(array: list[Number], k: int) -> Number:
